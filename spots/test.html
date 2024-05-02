@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        body, html {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          height: 1000px;
+          width: 1000px;
+        }
+        #back {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 2rem;
+          box-sizing: border-box;
+          transition: background-color 1s ease; /* Smooth transition for background color */
+        }
+        svg {
+          max-width: 90vw;
+          max-height: 90vh;
+          height: auto;
+          transition: transform 1s;
+          border: 4px solid purple;
+        }
+        use {
+          display: none;
+        }
+        .layer12 {
+          display: block;
+        }
+      </style>
+    </head>
+    <body>
+      <div id="back">
+        <svg id="frames">
+          <use class="layer1" xlink:href="/spots/layer1.svg#svg" />
+          <use class="layer2" xlink:href="/spots/layer2.svg#svg" />
+          <use class="layer3" xlink:href="/spots/layer3.svg#svg" />
+          <use class="layer4" xlink:href="/spots/layer4.svg#svg" />
+          <use class="layer5" xlink:href="/spots/layer5.svg#svg" />
+          <use class="layer6" xlink:href="/spots/layer6.svg#svg" />
+          <use class="layer7" xlink:href="/spots/layer7.svg#svg" />
+          <use class="layer8" xlink:href="/spots/layer8.svg#svg" />
+          <use class="layer9" xlink:href="/spots/layer9.svg#svg" />
+          <use class="layer10" xlink:href="/spots/layer10.svg#svg" />
+          <use class="layer11" xlink:href="/spots/layer11.svg#svg" />
+          <use class="layer12" xlink:href="/spots/layer12.svg#svg" />
+        </svg>
+      </div>
+      <script>
+        var color1= 'ff0033';
+        var color2='8899ff';
+        var curFrame = 1;
+        var numberOfFrames = 12;
+        var use = document.querySelectorAll('use');
+        console.log('use', use);
+        var body = document.querySelector('body');
+        var randomColor1 = '#' + color1;
+        var randomColor2 = '#' + color2;
+        console.log('random colors', randomColor1, randomColor2)
+        document.querySelector('#back').style.background = randomColor1;
+        body.style.background = randomColor1;
+        for(var i = 0; i < use.length; i++){
+          use[i].style.fill = randomColor2;
+        }
+        console.log(document.querySelector('#back').style.background);
+        console.log(use[0].style.fill);
+
+        setInterval(
+          function(){
+            var lastFrame = curFrame === 1? numberOfFrames : curFrame-1;
+            var lastLayer = document.querySelector('.layer' + lastFrame);
+            lastLayer.style.display = 'none';
+            var curLayer = document.querySelector('.layer'+curFrame);
+            curLayer.style.display = 'block';
+            if(curFrame === numberOfFrames) curFrame = 1;
+            else curFrame++;
+          },50
+        );
+      </script>
+    </body>
+    </html>
